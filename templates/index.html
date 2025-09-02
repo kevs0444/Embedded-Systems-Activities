@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHT11 Dashboard - SystemShapers</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Only apply to notif + badge icons, NOT buzzer */
+        .notif-icon img,
+        .badge img {
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="status" id="status">🟢</div>
+    
+    <!-- Error Notification -->
+    <div class="notification error" id="errorNotif">
+        <div class="notif-content">
+            <span class="notif-icon">
+                <img src="/static/icons/warning.png" alt="Error Icon">
+            </span>
+            <div>
+                <div class="notif-title">Sensor Error</div>
+                <div class="notif-msg">DHT11 sensor is not responding</div>
+            </div>
+            <button class="notif-close" id="closeNotif">×</button>
+        </div>
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <h1>
+                    <img src="/static/icons/thermometer.png" alt="Thermometer Icon" style="width:28px;height:28px;vertical-align:middle;">
+                    DHT11 Dashboard
+                </h1>
+                <small>by System Shapers</small>
+            </div>
+            <button class="theme-btn" id="themeBtn">🌙</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="grid">
+            <div class="card">
+                <h3>Temperature</h3>
+                <div class="value" id="temp">--</div>
+                <div class="badge" id="tempBadge">--</div>
+            </div>
+            
+            <div class="card">
+                <h3>Humidity</h3>
+                <div class="value" id="humidity">--</div>
+                <div class="badge ok">Normal</div>
+            </div>
+            
+            <div class="card">
+                <h3>Alert Status</h3>
+                <div class="alert-display">
+                    <div class="buzzer-icon" id="buzzer">
+                        <img src="/static/icons/buzzer.png" alt="Buzzer Icon">
+                    </div>
+                    <div class="badge" id="buzzerBadge">
+                        <span id="buzzerText">Standby</span>
+                        <img src="/static/icons/mute.png" alt="Mute Icon" id="buzzerStatusIcon">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h3>Real-time Data</h3>
+                    <button class="toggle-chart" id="toggleReal">📊 Toggle Chart</button>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color temp-color"></div>
+                        <span>Temperature (°C)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color humidity-color"></div>
+                        <span>Humidity (%)</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="realChart"></canvas>
+                    <div class="chart-tooltip" id="realTooltip"></div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h3>Historical Data (24h)</h3>
+                    <div class="chart-controls">
+                        <button class="clear-data-btn" id="clearData">🗑️ Clear Data</button>
+                        <button class="toggle-chart" id="toggleHist">📊 Toggle Chart</button>
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color temp-color"></div>
+                        <span>Temperature (°C)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color humidity-color"></div>
+                        <span>Humidity (%)</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="histChart"></canvas>
+                    <div class="chart-tooltip" id="histTooltip"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Last update: <span id="time">--</span>
+        </div>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
